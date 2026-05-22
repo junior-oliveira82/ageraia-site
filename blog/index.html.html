@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Agera IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0a; --bg2: #111111; --bg3: #161616;
+    --em: #10b981; --em2: #059669;
+    --white: #ffffff; --gray1: #f0f0f0; --gray2: #a0a0a0;
+    --gray3: #444444; --gray4: #222222;
+    --font-title: 'Rajdhani', sans-serif;
+    --font-body: 'Space Grotesk', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 5vw;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(16,185,129,0.12);
+  }
+  .nav-logo { font-family: var(--font-title); font-size: 1.4rem; font-weight: 800; letter-spacing: 0.04em; color: var(--white); text-decoration: none; }
+  .nav-logo .arrow { color: var(--em); margin: 0 0.2rem; }
+  .nav-logo span { color: var(--em); }
+  .nav-back { color: var(--gray2); font-size: 0.9rem; text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+  .nav-back:hover { color: var(--em); }
+
+  .hero {
+    padding: 8rem 5vw 4rem;
+    border-bottom: 1px solid var(--gray4);
+  }
+  .section-label {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--em); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::before { content: ''; width: 24px; height: 1px; background: var(--em); }
+  .hero h1 { font-family: var(--font-title); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+  .hero p { color: var(--gray2); font-size: 1.05rem; font-weight: 300; max-width: 560px; }
+
+  .blog-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1px; background: var(--gray4);
+    border-top: 1px solid var(--gray4);
+    border-bottom: 1px solid var(--gray4);
+  }
+  .post-card {
+    background: var(--bg);
+    padding: 2.5rem;
+    display: flex; flex-direction: column;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .post-card:hover { background: var(--bg2); }
+  .post-cat {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--em); margin-bottom: 1rem;
+  }
+  .post-card h2 { font-family: var(--font-title); font-size: 1.4rem; font-weight: 700; color: var(--white); margin-bottom: 0.75rem; line-height: 1.2; }
+  .post-card p { font-size: 0.95rem; color: var(--gray2); font-weight: 300; line-height: 1.7; flex: 1; }
+  .post-meta { margin-top: 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+  .post-date { font-size: 0.8rem; color: var(--gray3); }
+  .post-read { font-size: 0.8rem; color: var(--em); }
+
+  footer {
+    padding: 3rem 5vw;
+    text-align: center;
+    border-top: 1px solid var(--gray4);
+    font-size: 0.8rem; color: var(--gray3); font-family: var(--font-body);
+  }
+
+  @media (max-width: 768px) {
+    .blog-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">AGERA <span class="arrow">▸</span> <span>IA</span></a>
+  <a href="/" class="nav-back">← Voltar ao site</a>
+</nav>
+
+<section class="hero">
+  <div class="section-label">Blog</div>
+  <h1>Inteligência Comercial na prática</h1>
+  <p>Artigos sobre IA, vendas, gestão e ERP para pequenas empresas que querem crescer de verdade.</p>
+</section>
+
+<div class="blog-grid">
+
+  <a href="/blog/como-usar-ia-para-reativar-clientes-inativos.html" class="post-card">
+    <div class="post-cat">Vendas & Marketing</div>
+    <h2>Como usar IA para reativar clientes inativos e aumentar a recompra</h2>
+    <p>Clientes que compraram uma vez e sumiram são uma mina de ouro ignorada. Veja como um agente de IA pode recuperá-los automaticamente.</p>
+    <div class="post-meta">
+      <span class="post-date">21 Mai 2026</span>
+      <span class="post-read">5 min de leitura</span>
+    </div>
+  </a>
+
+  <a href="/blog/bling-erp-dados-que-voce-nao-usa.html" class="post-card">
+    <div class="post-cat">Gestão & ERP</div>
+    <h2>Bling ERP: os dados que você tem mas nunca usou para vender mais</h2>
+    <p>Seu ERP guarda um histórico valioso de comportamento de compra. Saiba como transformar esses dados em ação comercial.</p>
+    <div class="post-meta">
+      <span class="post-date">23 Mai 2026</span>
+      <span class="post-read">6 min de leitura</span>
+    </div>
+  </a>
+
+</div>
+
+<footer>Agera IA — Inteligência Comercial © 2026</footer>
+
+</body>
+</html>
