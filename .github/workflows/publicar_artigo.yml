@@ -1,0 +1,48 @@
+name: Publicar Artigo Agera IA
+
+on:
+  schedule:
+    # Segunda-feira às 9h (horário de Brasília = 12h UTC)
+    - cron: '0 12 * * 1'
+    # Terça-feira às 9h
+    - cron: '0 12 * * 2'
+    # Quarta-feira às 9h
+    - cron: '0 12 * * 3'
+  workflow_dispatch:  # permite rodar manualmente pelo GitHub
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependências
+        run: |
+          pip install requests PyMuPDF python-docx
+
+      - name: Gerar e publicar artigo
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+        run: |
+          python gerar_artigo.py
+
+      - name: Commit e push do artigo
+        run: |
+          git config --global user.name "Agera IA Bot"
+          git config --global user.email "contato@ageraia.com.br"
+          git add blog/ .agente_progresso.json
+          git diff --staged --quiet || git commit -m "Novo artigo publicado automaticamente"
+          git push
