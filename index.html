@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agera IA — Inteligência Comercial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #161616;
+    --em: #10b981;
+    --em2: #059669;
+    --em3: #d1fae5;
+    --white: #ffffff;
+    --gray1: #f0f0f0;
+    --gray2: #a0a0a0;
+    --gray3: #444444;
+    --gray4: #222222;
+    --font-title: 'Rajdhani', sans-serif;
+    --font-body: 'Space Grotesk', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 5vw;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(16,185,129,0.12);
+  }
+  .nav-logo {
+    font-family: var(--font-title);
+    font-size: 1.4rem; font-weight: 800;
+    letter-spacing: 0.04em;
+    color: var(--white);
+  }
+  .nav-logo .arrow { color: var(--em); margin: 0 0.2rem; font-weight: 300; }
+  .nav-logo span { color: var(--em); }
+  .nav-cta {
+    background: var(--em);
+    color: #000;
+    font-family: var(--font-body);
+    font-size: 0.85rem; font-weight: 500;
+    padding: 0.55rem 1.25rem;
+    border: none; border-radius: 4px;
+    cursor: pointer; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--em2); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 5vw 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(16,185,129,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(16,185,129,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(16,185,129,0.06) 0%, transparent 70%);
+    bottom: 0; left: 10%;
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; max-width: 1100px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.3);
+    color: var(--em);
+    font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem; border-radius: 100px;
+    margin-bottom: 2rem;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--em);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .hero h1 {
+    font-family: var(--font-title);
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--em);
+  }
+  .hero p {
+    font-size: 1.1rem;
+    color: var(--gray2);
+    max-width: 820px;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+  .cta-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--em);
+    color: #000;
+    font-family: var(--font-body);
+    font-size: 1rem; font-weight: 500;
+    padding: 1rem 2rem;
+    border: none; border-radius: 4px;
+    cursor: pointer; text-decoration: none;
+    transition: all 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .cta-primary::after {
+    content: '→';
+    transition: transform 0.2s;
+  }
+  .cta-primary:hover { background: var(--em2); }
+  .cta-primary:hover::after { transform: translateX(4px); }
+
+  .hero-stats {
+    display: flex; gap: 3rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray4);
+  }
+  .stat-num {
+    font-family: var(--font-title);
+    font-size: 1.8rem; font-weight: 800;
+    color: var(--em);
+  }
+  .stat-label {
+    font-size: 1.15rem; color: var(--gray2); margin-top: 2px;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 5vw; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--em);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::before {
+    content: '';
+    width: 24px; height: 1px; background: var(--em);
+  }
+  .section-title {
+    font-family: var(--font-title);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.25rem;
+  }
+  .section-sub {
+    font-size: 1.15rem; color: var(--gray2);
+    max-width: 580px; line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* ── PROBLEMA ── */
+  .problema { background: var(--bg2); }
+  .problema-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: center;
+  }
+  .problema-text p {
+    color: var(--gray2); font-weight: 300;
+    margin-top: 1.5rem; line-height: 1.8;
+    font-size: 1.05rem;
+  }
+  .problema-visual {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--gray3);
+    border: 1px solid var(--gray3);
+  }
+  .pv-cell {
+    background: var(--bg2);
+    padding: 1.5rem;
+  }
+  .pv-num {
+    font-family: var(--font-title);
+    font-size: 2.2rem; font-weight: 800;
+    color: var(--em);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .pv-label { font-size: 1.15rem; color: var(--gray2); }
+
+  /* ── COMO FUNCIONA ── */
+  .como { background: var(--bg); }
+  .steps {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--gray4);
+    border: 1px solid var(--gray4);
+    margin-top: 3.5rem;
+  }
+  .step {
+    background: var(--bg);
+    padding: 2.5rem 2rem;
+    position: relative;
+  }
+  .step-num {
+    font-family: var(--font-title);
+    font-size: 3rem; font-weight: 800;
+    color: rgba(16,185,129,0.15);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .step-tag {
+    display: inline-block;
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.25);
+    color: var(--em);
+    font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.3rem 0.75rem; border-radius: 3px;
+    margin-bottom: 1rem;
+  }
+  .step h3 {
+    font-family: var(--font-title);
+    font-size: 1.15rem; font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+  .step p { font-size: 1.2rem; color: var(--gray2); line-height: 1.75; font-weight: 300; }
+  .step-line {
+    position: absolute; top: 2.5rem; right: 0;
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--em), transparent);
+  }
+
+  /* ── INTEGRAÇÃO ── */
+  .integracao { background: var(--bg2); }
+  .int-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .int-text p { color: var(--gray2); font-weight: 300; margin-top: 1.5rem; line-height: 1.8; font-size: 1.05rem; }
+  .int-tags {
+    display: flex; flex-wrap: wrap; gap: 0.75rem;
+    margin-top: 2rem;
+  }
+  .int-tag {
+    background: var(--bg3);
+    border: 1px solid var(--gray3);
+    color: var(--gray1);
+    font-size: 0.85rem; font-weight: 400;
+    padding: 0.5rem 1rem; border-radius: 3px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .int-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--em); border-radius: 50%;
+  }
+  .int-visual {
+    display: flex; flex-direction: column; gap: 1px;
+    background: var(--gray4);
+    border: 1px solid var(--gray4);
+  }
+  .iv-row {
+    background: var(--bg2);
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.5rem;
+  }
+  .iv-dot { width: 8px; height: 8px; background: var(--em); border-radius: 50%; flex-shrink: 0; }
+  .iv-name { font-size: 0.9rem; font-weight: 400; flex: 1; }
+  .iv-status {
+    font-size: 0.72rem; color: var(--em);
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.2);
+    padding: 0.2rem 0.6rem; border-radius: 3px;
+  }
+
+  /* ── PLANOS ── */
+  .planos { background: var(--bg); }
+  .planos-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1px; background: var(--gray4);
+    border: 1px solid var(--gray4);
+    margin-top: 3.5rem;
+  }
+  .plano {
+    background: var(--bg);
+    padding: 2.5rem 2rem;
+    display: flex; flex-direction: column;
+    transition: background 0.2s;
+  }
+  .plano.featured {
+    background: var(--bg3);
+    position: relative;
+  }
+  .plano.featured::before {
+    content: 'Mais Contratado';
+    position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%);
+    background: var(--em);
+    color: #000;
+    font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.35rem 1rem; border-radius: 3px;
+    white-space: nowrap;
+  }
+  .plano-tag {
+    font-size: 0.9rem; font-weight: 500;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--em); margin-bottom: 0.5rem;
+  }
+  .plano h3 {
+    font-family: var(--font-title);
+    font-size: 1.7rem; font-weight: 800;
+    margin-bottom: 0.35rem;
+  }
+  .plano-sub { font-size: 1rem; color: var(--gray2); margin-bottom: 2rem; font-weight: 300; }
+  .plano-divider { height: 1px; background: var(--gray4); margin-bottom: 1.75rem; }
+  .plano-items { list-style: none; flex: 1; }
+  .plano-items li {
+    display: flex; gap: 10px;
+    font-size: 1.15rem; color: var(--gray2);
+    margin-bottom: 0.9rem; font-weight: 300;
+    line-height: 1.5;
+  }
+  .plano-items li::before {
+    content: '✓';
+    color: var(--em); font-weight: 500;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .plano-cta {
+    display: block; text-align: center;
+    margin-top: 2rem;
+    padding: 0.85rem;
+    border: 1px solid var(--gray3);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 1.05rem; font-weight: 400;
+    text-decoration: none; border-radius: 3px;
+    transition: all 0.2s;
+    cursor: pointer; background: transparent;
+  }
+  .plano.featured .plano-cta {
+    background: var(--em);
+    border-color: var(--em);
+    color: #000; font-weight: 500;
+  }
+  .plano-cta:hover { border-color: var(--em); color: var(--em); }
+  .plano.featured .plano-cta:hover { background: var(--em2); border-color: var(--em2); color: #000; }
+
+  /* ── SLOGAN BLOCK ── */
+  .slogan-block {
+    background: var(--bg2);
+    padding: 5rem 5vw;
+    text-align: center;
+    border-top: 1px solid var(--gray4);
+    border-bottom: 1px solid var(--gray4);
+  }
+  .slogan-block p {
+    font-family: var(--font-title);
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    font-weight: 700;
+    color: var(--gray2);
+    letter-spacing: -0.01em;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.3;
+  }
+  .slogan-block p span { color: var(--white); }
+  .slogan-block em {
+    font-style: normal;
+    color: var(--em);
+  }
+
+  /* ── FOOTER / CTA FINAL ── */
+  footer {
+    background: var(--bg);
+    padding: 6rem 5vw 3rem;
+    text-align: center;
+    border-top: 1px solid var(--gray4);
+  }
+  footer h2 {
+    font-family: var(--font-title);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+  footer h2 span { color: var(--em); }
+  footer p {
+    color: var(--gray2); font-size: 1.15rem;
+    margin-bottom: 2.5rem; font-weight: 300;
+  }
+  .footer-legal {
+    margin-top: 5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--gray4);
+    font-size: 0.8rem; color: var(--gray3);
+  }
+
+  /* ── WHATSAPP FLOAT ── */
+  .wa-float {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: #25d366;
+    color: #fff;
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+    z-index: 200;
+    transition: transform 0.2s;
+  }
+  .wa-float:hover { transform: scale(1.08); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .problema-inner, .int-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .steps, .planos-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    nav .nav-cta { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AGERA <span class="arrow">▸</span> <span>IA</span></div>
+  <div style="display: flex; gap: 0.75rem; align-items: center;">
+    <a href="/sobre.html" class="nav-cta" style="background: transparent; border: 1px solid var(--em); color: var(--em);">Sobre a Agera IA</a>
+    <a href="/blog/" class="nav-cta" style="background: transparent; border: 1px solid var(--em); color: var(--em);">Insights</a>
+    <a href="#diagnostico" class="nav-cta">Diagnóstico Gratuito</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div class="hero-badge">Inteligência Comercial</div>
+    <h1>Transforme os dados parados da sua loja em <em>vendas automáticas.</em></h1>
+    <p>Conectamos a inteligência artificial ao seu sistema de gestão (Bling/Omie) para recuperar clientes sumidos, prever demandas e automatizar suas rotinas comerciais. Sem complicação.</p>
+    <a href="#diagnostico" class="cta-primary" id="hero-cta">Agende seu Diagnóstico Gratuito</a>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">O agente nunca para</div>
+      </div>
+      <div>
+        <div class="stat-num">48h</div>
+        <div class="stat-label">Para o agente entrar em operação</div>
+      </div>
+      <div>
+        <div class="stat-num">0</div>
+        <div class="stat-label">Migrações ou retrabalho</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUEM SOMOS -->
+<section style="background: var(--bg); padding: 5rem 5vw; border-top: 1px solid var(--gray4);">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+    <div>
+      <div class="section-label">Sobre a Agera IA</div>
+      <h2 class="section-title" style="margin-bottom: 2rem;">Resultado comercial com tecnologia como meio.</h2>
+      <p style="font-size: 1.15rem; color: var(--gray2); line-height: 1.9; font-weight: 300; margin-bottom: 1.5rem;">Pequenas e médias empresas têm potencial, têm clientes e têm dados — mas raramente têm tempo e estrutura para transformar tudo isso em resultado comercial.</p>
+      <p style="font-size: 1.15rem; color: var(--gray2); line-height: 1.9; font-weight: 300; margin-bottom: 1.5rem;">A Agera IA foi criada para mudar isso. Combinamos anos de experiência em vendas, marketing e transformação digital com inteligência artificial aplicada — entregando o braço comercial que essas empresas sempre precisaram mas raramente tiveram acesso.</p>
+      <p style="font-size: 1.15rem; color: var(--gray2); line-height: 1.9; font-weight: 300; margin-bottom: 2rem;">Não vendemos tecnologia. Vendemos resultado comercial com tecnologia como meio.</p>
+      <a href="/sobre.html" class="nav-cta" style="background: transparent; border: 1px solid var(--em); color: var(--em); font-size: 1rem; padding: 0.85rem 1.75rem;">Conheça nossa história</a>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gray4); border: 1px solid var(--gray4); align-self: stretch;">
+      <div style="background: var(--bg2); padding: 2rem; display: flex; align-items: center;">
+        <div style="font-family: var(--font-title); font-size: 1.1rem; font-weight: 600; color: var(--em); line-height: 1.5;">"O que falta não é esforço — é processo."</div>
+      </div>
+      <div style="background: var(--bg2); padding: 2rem; display: flex; align-items: center;">
+        <div style="font-family: var(--font-title); font-size: 1.1rem; font-weight: 600; color: var(--em); line-height: 1.5;">"Experiência comercial em vendas, marketing e tecnologia."</div>
+      </div>
+      <div style="background: var(--bg2); padding: 2rem; display: flex; align-items: center;">
+        <div style="font-family: var(--font-title); font-size: 1.1rem; font-weight: 600; color: var(--em); line-height: 1.5;">"IA aplicada onde o impacto é mais relevante."</div>
+      </div>
+      <div style="background: var(--bg2); padding: 2rem; display: flex; align-items: center;">
+        <div style="font-family: var(--font-title); font-size: 1.1rem; font-weight: 600; color: var(--em); line-height: 1.5;">"A resposta nem sempre é produto. É acompanhamento."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section class="problema">
+  <div class="problema-inner">
+    <div class="problema-text">
+      <div class="section-label">O Problema</div>
+      <h2 class="section-title">Sua loja está deixando dinheiro na mesa?</h2>
+      <p>Todos os dias, clientes compram uma vez e somem. Dados valiosos ficam acumulados no seu ERP sem uso estratégico. Enquanto você foca no balcão e na operação diária, as oportunidades de recompra passam. Cada dado ignorado é lucro que escorre pelas mãos.</p>
+    </div>
+    <div class="problema-visual">
+      <div class="pv-cell">
+        <div class="pv-num">73%</div>
+        <div class="pv-label">dos clientes não voltam após a 1ª compra</div>
+      </div>
+      <div class="pv-cell">
+        <div class="pv-num">5×</div>
+        <div class="pv-label">mais barato reativar do que prospectar</div>
+      </div>
+      <div class="pv-cell">
+        <div class="pv-num">R$0</div>
+        <div class="pv-label">retorno de dados parados no ERP</div>
+      </div>
+      <div class="pv-cell">
+        <div class="pv-num">68%</div>
+        <div class="pv-label">das PMEs não usam dados para decidir</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="como">
+  <div class="section-label">Como Funciona</div>
+  <h2 class="section-title">Agente de IA: O braço comercial<br>que trabalha por você</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-tag">Diagnóstico</div>
+      <h3>Leitura do seu negócio</h3>
+      <p>Lemos seu sistema em tempo real para entender quem são seus clientes, o que compram e quando param de comprar.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-tag">Treinamento</div>
+      <h3>Agente sob medida</h3>
+      <p>O agente aprende o tom de voz da sua marca e as regras do seu negócio, funcionando como um funcionário digital.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-tag">Ação Ativa</div>
+      <h3>Resultado em operação</h3>
+      <p>Em vez de esperar, o agente aborda via WhatsApp, reativa inativos e sugere reposições no momento exato.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INTEGRAÇÃO -->
+<section class="integracao">
+  <div class="int-inner">
+    <div class="int-text">
+      <div class="section-label">Integrações</div>
+      <h2 class="section-title">Conectado ao seu ecossistema, sem migrações complexas.</h2>
+      <p>Nossa inteligência se conecta diretamente via API às principais plataformas que você já usa no mercado brasileiro: ERPs, WhatsApp Business e CRM.</p>
+      <div class="int-tags">
+        <span class="int-tag">Bling ERP</span>
+        <span class="int-tag">Omie ERP</span>
+        <span class="int-tag">Tiny ERP</span>
+        <span class="int-tag">WhatsApp Business</span>
+        <span class="int-tag">CRM</span>
+        <span class="int-tag">API Customizada</span>
+      </div>
+    </div>
+    <div class="int-visual">
+      <div class="iv-row">
+        <div class="iv-dot"></div>
+        <span class="iv-name">Bling ERP</span>
+        <span class="iv-status">Conectado</span>
+      </div>
+      <div class="iv-row">
+        <div class="iv-dot"></div>
+        <span class="iv-name">WhatsApp Business</span>
+        <span class="iv-status">Conectado</span>
+      </div>
+      <div class="iv-row">
+        <div class="iv-dot"></div>
+        <span class="iv-name">Omie ERP</span>
+        <span class="iv-status">Conectado</span>
+      </div>
+      <div class="iv-row">
+        <div class="iv-dot"></div>
+        <span class="iv-name">Tiny ERP</span>
+        <span class="iv-status">Conectado</span>
+      </div>
+      <div class="iv-row">
+        <div class="iv-dot"></div>
+        <span class="iv-name">CRM Personalizado</span>
+        <span class="iv-status">Conectado</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANOS -->
+<section class="planos" id="planos">
+  <div class="section-label">Planos</div>
+  <h2 class="section-title">Planos de Aceleração Comercial</h2>
+  <p class="section-sub">Cada plano é um degrau. Você começa pelo diagnóstico e evolui conforme o resultado aparece.</p>
+  <div class="planos-grid">
+
+    <div class="plano">
+      <div class="plano-tag">Plano Básico</div>
+      <h3>O Diagnóstico</h3>
+      <p class="plano-sub">Visibilidade total sobre o seu negócio</p>
+      <div class="plano-divider"></div>
+      <ul class="plano-items">
+        <li>Relatórios semanais de performance</li>
+        <li>Alertas de ruptura de estoque</li>
+        <li>Mapa de clientes inativos (churn)</li>
+        <li>Scripts prontos para copiar e colar no WhatsApp da gestão</li>
+      </ul>
+      <a href="https://wa.me/5548984445624?text=Olá!%20Tenho%20interesse%20no%20Plano%20Básico%20da%20Agera%20IA.%20Gostaria%20de%20saber%20mais." class="plano-cta">Começar com Básico</a>
+    </div>
+
+    <div class="plano featured">
+      <div class="plano-tag">Plano Médio</div>
+      <h3>A Execução Ativa</h3>
+      <p class="plano-sub">O agente age por você</p>
+      <div class="plano-divider"></div>
+      <ul class="plano-items">
+        <li>Tudo do Plano Básico</li>
+        <li>Automação de disparos humanizados via WhatsApp</li>
+        <li>Reativação automática de clientes inativos</li>
+        <li>Pós-venda automático</li>
+        <li>Registro das respostas direto no sistema</li>
+      </ul>
+      <a href="https://wa.me/5548984445624?text=Olá!%20Tenho%20interesse%20no%20Plano%20Médio%20da%20Agera%20IA.%20Gostaria%20de%20saber%20mais." class="plano-cta">Começar com Médio</a>
+    </div>
+
+    <div class="plano">
+      <div class="plano-tag">Plano Avançado</div>
+      <h3>A Atração Avançada</h3>
+      <p class="plano-sub">Crescimento ativo de novos clientes</p>
+      <div class="plano-divider"></div>
+      <ul class="plano-items">
+        <li>Tudo do Plano Médio</li>
+        <li>Prospecção ativa de parceiros locais via Google Maps</li>
+        <li>Geração automática de conteúdo estratégico para o blog</li>
+        <li>Geração automática de conteúdo estratégico para blog e redes sociais</li>
+      </ul>
+      <a href="https://wa.me/5548984445624?text=Olá!%20Tenho%20interesse%20no%20Plano%20Avançado%20da%20Agera%20IA.%20Gostaria%20de%20saber%20mais." class="plano-cta">Começar com Avançado</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- SLOGAN BLOCK -->
+<div class="slogan-block">
+  <p><span style="display: inline-block; transform: skewX(-10deg);">Agente</span> entende. <span style="display: inline-block; transform: skewX(-10deg);">Agente</span> age.</p>
+</div>
+
+<!-- FOOTER / CTA FINAL -->
+<footer id="diagnostico">
+  <h2>Agera IA: <span>Inteligência que se traduz em vendas.</span></h2>
+  <p>Pronto para ativar a inteligência comercial do seu negócio?</p>
+  <a href="https://wa.me/5548984445624?text=Olá!%20Gostaria%20de%20agendar%20meu%20diagnóstico%20gratuito%20com%20a%20Agera%20IA." class="cta-primary" target="_blank" rel="noopener">
+    Agende seu Diagnóstico Gratuito
+  </a>
+</footer>
+
+<!-- CONTATO -->
+<section style="background: var(--bg2); padding: 4rem 5vw; border-top: 1px solid var(--gray4);">
+  <div class="section-label">Contato</div>
+  <h2 class="section-title">Fale com <em>Agente</em></h2>
+  <div style="display: flex; gap: 3rem; margin-top: 2rem; flex-wrap: wrap;">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span style="color: var(--em); font-size: 1.4rem;">✉</span>
+      <a href="mailto:contato@ageraia.com.br" style="color: var(--gray1); text-decoration: none; font-size: 1rem; font-family: var(--font-body);">contato@ageraia.com.br</a>
+    </div>
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <span style="color: #25d366; font-size: 1.4rem;"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></span>
+      <a href="https://wa.me/5548984445624" target="_blank" rel="noopener" style="color: var(--gray1); text-decoration: none; font-size: 1rem; font-family: var(--font-body);">+55 48 98444-5624</a>
+    </div>
+  </div>
+</section>
+
+<!-- RODAPÉ FINAL -->
+<div style="background: var(--bg); padding: 1.25rem 5vw; border-top: 1px solid var(--gray4); text-align: center; font-size: 0.8rem; color: var(--gray3); font-family: var(--font-body);">
+  Agera IA — Inteligência Comercial © 2026
+</div>
+
+
+
+<script>
+  document.querySelectorAll('a[href="#diagnostico"], a[href="#planos"], #hero-cta').forEach(el => {
+    el.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.step, .plano, .pv-cell, .iv-row').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
