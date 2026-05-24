@@ -27,7 +27,7 @@ except ImportError:
 # ── Configurações ────────────────────────────────────────────────
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
 TAVILY_API_KEY = os.environ["TAVILY_API_KEY"]
-CONTEUDO_DIR = Path("conteudo")
+CONTEUDO_DIR = Path("conteudo-agera-ia")
 BLOG_DIR = Path("blog")
 POSTS_JSON = BLOG_DIR / "posts.json"
 PROGRESSO_FILE = Path(".agente_progresso.json")
