@@ -4,10 +4,10 @@ on:
   schedule:
     # Segunda-feira às 9h (horário de Brasília = 12h UTC)
     - cron: '0 12 * * 1'
-    # Terça-feira às 9h
-    - cron: '0 12 * * 2'
     # Quarta-feira às 9h
     - cron: '0 12 * * 3'
+    # Sexta-feira às 9h
+    - cron: '0 12 * * 5'
   workflow_dispatch:
 
 jobs:
