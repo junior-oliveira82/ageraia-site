@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ageraia-site",
+  "compatibility_date": "2026-05-22",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": ".",
+    "exclude": [
+      ".git",
+      "conteudo-agera-ia",
+      "gerar_artigo.py",
+      "LEIAME.md",
+      ".agente_progresso.json",
+      ".wranglerignore",
+      "node_modules",
+      "publicar_artigo.yml"
+    ]
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
