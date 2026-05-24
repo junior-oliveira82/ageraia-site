@@ -6,17 +6,7 @@
     "enabled": true
   },
   "assets": {
-    "directory": ".",
-    "exclude": [
-      ".git",
-      "conteudo-agera-ia",
-      "gerar_artigo.py",
-      "LEIAME.md",
-      ".agente_progresso.json",
-      ".wranglerignore",
-      "node_modules",
-      "publicar_artigo.yml"
-    ]
+    "directory": "./public"
   },
   "compatibility_flags": [
     "nodejs_compat"
