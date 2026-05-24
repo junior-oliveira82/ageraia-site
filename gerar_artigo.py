@@ -28,7 +28,7 @@ except ImportError:
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
 TAVILY_API_KEY = os.environ["TAVILY_API_KEY"]
 CONTEUDO_DIR = Path("conteudo-agera-ia")
-BLOG_DIR = Path("public/blog")  # v2
+BLOG_DIR = Path("public/blog")
 POSTS_JSON = BLOG_DIR / "posts.json"
 PROGRESSO_FILE = Path(".agente_progresso.json")
 
@@ -383,6 +383,8 @@ def gerar_slug(titulo):
 
 def main():
     print("Iniciando agente de publicação Agera IA...")
+    print(f"BLOG_DIR absoluto: {BLOG_DIR.resolve()}")
+    print(f"BLOG_DIR existe: {BLOG_DIR.exists()}")
 
     # Carrega progresso
     progresso = carregar_progresso()
