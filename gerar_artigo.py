@@ -383,8 +383,7 @@ def gerar_slug(titulo):
 
 def main():
     print("Iniciando agente de publicação Agera IA...")
-    print(f"BLOG_DIR absoluto: {BLOG_DIR.resolve()}")
-    print(f"BLOG_DIR existe: {BLOG_DIR.exists()}")
+    
 
     # Carrega progresso
     progresso = carregar_progresso()
