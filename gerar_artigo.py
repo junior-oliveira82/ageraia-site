@@ -179,7 +179,36 @@ Retorne SOMENTE um JSON válido com esta estrutura (sem markdown, sem texto ante
     # Remove possíveis marcadores markdown
     content = re.sub(r"```json\s*", "", content)
     content = re.sub(r"```\s*", "", content)
-    return json.loads(content.strip())
+    content = content.strip()
+
+    # Tenta extrair JSON válido mesmo que haja texto antes/depois
+    match = re.search(r'\{.*\}', content, re.DOTALL)
+    if match:
+        content = match.group(0)
+
+    try:
+        return json.loads(content)
+    except json.JSONDecodeError:
+        # Segunda tentativa: pede ao Claude para corrigir o JSON
+        correcao_prompt = f"""O JSON abaixo está inválido. Corrija-o e retorne APENAS o JSON válido, sem texto adicional:
+
+{content}"""
+        payload_correcao = {
+            "model": "claude-haiku-4-5-20251001",
+            "max_tokens": 4000,
+            "messages": [{"role": "user", "content": correcao_prompt}],
+        }
+        resp2 = requests.post(
+            "https://api.anthropic.com/v1/messages",
+            headers=headers,
+            json=payload_correcao,
+            timeout=60,
+        )
+        resp2.raise_for_status()
+        content2 = resp2.json()["content"][0]["text"]
+        content2 = re.sub(r"```json\s*", "", content2)
+        content2 = re.sub(r"```\s*", "", content2)
+        return json.loads(content2.strip())
 
 
 def calcular_proxima_data(progresso):
