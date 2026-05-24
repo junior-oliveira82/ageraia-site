@@ -5,7 +5,7 @@
 - `.github/workflows/publicar_artigo.yml` — automação (roda seg/ter/qua às 9h)
 - `conteudo/` — pasta onde você coloca os PDFs e docs Word
 - `.agente_progresso.json` — controle de arquivos já processados (não apague)
-
+ 
 ## Como adicionar conteúdo
 1. Coloque seus PDFs e arquivos Word na pasta `conteudo/`
 2. O agente vai processar na ordem dos mais antigos para os mais recentes
