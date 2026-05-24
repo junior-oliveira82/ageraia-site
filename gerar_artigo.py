@@ -119,20 +119,29 @@ def pesquisar_web(tema):
 
 def gerar_artigo_claude(texto_base, pesquisa_web, nome_arquivo):
     """Chama a API da Anthropic para gerar o artigo."""
-    prompt = f"""Você é um especialista em vendas, marketing e inteligência artificial para pequenas e médias empresas.
+    prompt = f"""Você é o editor de conteúdo da Agera IA — uma consultoria de agentes de inteligência artificial focada em vendas, marketing e integração com ERPs (como Bling e Omie) para pequenas e médias empresas.
 
-Com base no material de referência abaixo e nas informações atualizadas da web, escreva um artigo original em português brasileiro para o blog da Agera IA.
+Sua missão é transformar o material de referência abaixo em um artigo original para o blog da Agera IA.
 
-REGRAS IMPORTANTES:
-1. NÃO copie o texto base — use-o apenas como referência conceitual
-2. Atualize dados e estatísticas com base nas informações da web quando disponível
-3. O artigo deve ser relevante para donos de pequenas e médias empresas brasileiras
-4. Tom: profissional, direto, sem jargão excessivo
-5. Tamanho: 600 a 900 palavras
-6. Inclua dados e fontes verificáveis quando usar estatísticas
-7. Termine com uma conclusão prática e acionável
+SOBRE A AGERA IA:
+- Cria agentes de IA que automatizam vendas, atendimento, follow-up e marketing
+- Integra com ERPs brasileiros como Bling e Omie
+- Atende pequenas e médias empresas que querem crescer faturamento e proteger margem
+- Posicionamento: "Não vendemos tecnologia. Vendemos resultado comercial com tecnologia como meio."
+- Arquétipo: O Sábio — profundo, especialista, direto, sem romantismo
 
-MATERIAL DE REFERÊNCIA:
+REGRAS OBRIGATÓRIAS — NUNCA VIOLE:
+1. NÃO copie frases ou trechos do material base — use apenas como referência conceitual
+2. NÃO recomende ferramentas, plataformas ou empresas concorrentes pelo nome
+3. NÃO mencione anos passados no título — NUNCA coloque 2024 ou anterior no título
+4. Só mencione um ano no título se for artigo de tendências de fim/início de ano
+5. SEMPRE conecte o tema ao posicionamento da Agera IA — agentes de IA, ERP, vendas, marketing, resultado comercial
+6. Tom: profissional, direto, analítico — como um especialista que fala com autoridade, não um blog genérico de tecnologia
+7. Tamanho: 600 a 900 palavras
+8. Use dados atualizados da pesquisa web — atualize qualquer dado defasado do material base
+9. Conclua sempre com uma perspectiva prática e acionável conectada ao que a Agera IA oferece
+
+MATERIAL DE REFERÊNCIA (use como inspiração conceitual, não como fonte literal):
 {texto_base}
 
 INFORMAÇÕES ATUALIZADAS DA WEB:
@@ -140,11 +149,11 @@ INFORMAÇÕES ATUALIZADAS DA WEB:
 
 Retorne SOMENTE um JSON válido com esta estrutura (sem markdown, sem texto antes ou depois):
 {{
-  "titulo": "Título do artigo (máximo 80 caracteres)",
+  "titulo": "Título do artigo — direto, sem ano defasado, máximo 80 caracteres",
   "resumo": "Resumo de 1-2 frases para o card do blog (máximo 160 caracteres)",
   "categoria": "uma das opções: vendas, ia, erp, varejo, transformacao",
   "corpo": "HTML do artigo com parágrafos em <p>, subtítulos em <h2> e <h3>, listas em <ul><li>",
-  "fontes": ["lista de fontes utilizadas como strings"]
+  "fontes": ["lista de fontes utilizadas como strings — apenas fontes reais verificadas"]
 }}"""
 
     headers = {
