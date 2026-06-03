@@ -97,7 +97,20 @@
   footer p { color: var(--gray2); font-size: 1.15rem; margin-bottom: 2.5rem; font-weight: 300; }
   .wa-float { position: fixed; bottom: 2rem; right: 2rem; background: #25d366; color: #fff; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.4); z-index: 200; transition: transform 0.2s; }
   .wa-float:hover { transform: scale(1.08); }
-  @media (max-width: 768px) { .problema-inner, .int-inner { grid-template-columns: 1fr; gap: 3rem; } .steps, .planos-grid { grid-template-columns: 1fr; } .hero-stats { gap: 2rem; flex-wrap: wrap; } nav .nav-cta { display: none; } }
+  @media (max-width: 768px) {
+    html, body { overflow-x: hidden; }
+    .problema-inner, .int-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .steps, .planos-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 2rem; flex-wrap: wrap; }
+    nav .nav-cta { display: none; }
+    nav .nav-cta:last-child { display: inline-block; font-size: 0.78rem; padding: 0.45rem 0.9rem; }
+    .sobre-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+    .citacoes-grid { grid-template-columns: 1fr !important; }
+    .hero h1 { font-size: 2rem; }
+    .hero p { font-size: 1rem; }
+    section { padding: 4rem 5vw; }
+    .section-title { font-size: 1.6rem; }
+  }
 </style>
 </head>
 <body>
@@ -130,7 +143,7 @@
 </section>
 
 <section style="background: var(--bg); padding: 5rem 5vw; border-top: 1px solid var(--gray4);">
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
+  <div class="sobre-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
     <div>
       <div class="section-label">Sobre a Agera IA</div>
       <h2 class="section-title" style="margin-bottom: 2rem;">Resultado comercial com tecnologia como meio.</h2>
@@ -139,7 +152,7 @@
       <p style="font-size: 1.15rem; color: var(--gray2); line-height: 1.9; font-weight: 300; margin-bottom: 2rem;">Não vendemos tecnologia. Vendemos resultado comercial com tecnologia como meio.</p>
       <a href="/sobre.html" class="nav-cta" style="background: transparent; border: 1px solid var(--em); color: var(--em); font-size: 1rem; padding: 0.85rem 1.75rem;">Conheça nossa história</a>
     </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gray4); border: 1px solid var(--gray4); align-self: stretch;">
+    <div class="citacoes-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gray4); border: 1px solid var(--gray4); align-self: stretch;">
       <div style="background: var(--bg2); padding: 2rem; display: flex; align-items: center;"><div style="font-family: var(--font-title); font-size: 22px; font-weight: 600; color: var(--em); line-height: 1.5;">"O que falta não é esforço — é processo."</div></div>
       <div style="background: var(--bg2); padding: 2rem; display: flex; align-items: center;"><div style="font-family: var(--font-title); font-size: 22px; font-weight: 600; color: var(--em); line-height: 1.5;">"Experiência comercial em vendas, marketing e tecnologia."</div></div>
       <div style="background: var(--bg2); padding: 2rem; display: flex; align-items: center;"><div style="font-family: var(--font-title); font-size: 22px; font-weight: 600; color: var(--em); line-height: 1.5;">"IA aplicada onde o impacto é mais relevante."</div></div>
