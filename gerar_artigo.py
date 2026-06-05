@@ -484,6 +484,13 @@ def main():
     progresso["ultima_data"] = data_pub.isoformat()
     salvar_progresso(progresso)
 
+    # Deleta o arquivo fonte após uso
+    try:
+        arquivo.unlink()
+        print(f"Arquivo deletado: {arquivo.name}")
+    except Exception as e:
+        print(f"Não foi possível deletar {arquivo.name}: {e}")
+
     print(f"Concluído: {artigo['titulo']}")
 
 
