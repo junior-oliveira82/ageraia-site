@@ -117,6 +117,21 @@ def pesquisar_web(tema):
         return ""
 
 
+def buscar_imagem_unsplash(tema):
+    """Busca uma imagem relevante no Unsplash com base no tema do artigo."""
+    try:
+        palavras = tema.replace("-", " ").split()[:3]
+        query = "+".join(palavras)
+        url = f"https://source.unsplash.com/1200x630/?{query},business,technology"
+        # Unsplash source retorna redirect para imagem — usamos a URL direta
+        resp = requests.get(url, allow_redirects=True, timeout=10)
+        if resp.status_code == 200 and "image" in resp.headers.get("Content-Type", ""):
+            return resp.url
+    except Exception:
+        pass
+    # Fallback: imagem padrão da Agera IA via placeholder escuro
+    return "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80"
+
 def gerar_artigo_claude(texto_base, pesquisa_web, nome_arquivo):
     """Chama a API da Anthropic para gerar o artigo."""
     prompt = f"""Você é o editor de conteúdo da Agera IA — uma consultoria de agentes de inteligência artificial focada em vendas, marketing e integração com ERPs (como Bling e Omie) para pequenas e médias empresas.
@@ -258,6 +273,13 @@ def criar_html_artigo(artigo, data_pub, slug):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{artigo['titulo']} — Agera IA</title>
 <meta name="description" content="{artigo['resumo']}">
+<meta property="og:title" content="{artigo['titulo']} — Agera IA">
+<meta property="og:description" content="{artigo['resumo']}">
+<meta property="og:image" content="{artigo.get('imagem_url', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80')}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://ageraia.com.br/blog/{slug}.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{artigo.get('imagem_url', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80')}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -320,6 +342,8 @@ def criar_html_artigo(artigo, data_pub, slug):
 </div>
 
 <hr class="post-divider">
+
+{imagem_capa_html}
 
 <div class="post-body">
 {artigo['corpo']}
@@ -429,8 +453,21 @@ def main():
     # Gera slug
     slug = gerar_slug(artigo["titulo"])
 
+    # Busca imagem no Unsplash baseada no tema do artigo
+    print("Buscando imagem no Unsplash...")
+    palavras_tema = slug.replace("-", " ")
+    imagem_url = buscar_imagem_unsplash(palavras_tema)
+    artigo["imagem_url"] = imagem_url
+    print(f"Imagem: {imagem_url}")
+
+    # Gera HTML da imagem de capa
+    imagem_capa_html = f'''<div style="max-width:780px;margin:2rem auto;padding:0 5vw;">
+  <img src="{imagem_url}" alt="{artigo["titulo"]}" style="width:100%;border-radius:4px;display:block;max-height:420px;object-fit:cover;">
+</div>'''
+
     # Cria HTML
     html = criar_html_artigo(artigo, data_pub, slug)
+    html = html.replace("{imagem_capa_html}", imagem_capa_html)
 
     # Salva arquivo HTML
     caminho_html = BLOG_DIR / f"{slug}.html"
