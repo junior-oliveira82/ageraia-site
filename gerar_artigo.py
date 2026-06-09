@@ -246,7 +246,7 @@ def calcular_proxima_data(progresso):
     return datetime.now()
 
 
-def criar_html_artigo(artigo, data_pub, slug):
+def criar_html_artigo(artigo, data_pub, slug, imagem_capa_html=""):
     """Gera o HTML completo do artigo no padrão do blog."""
     categoria_display = CATEGORIAS.get(artigo["categoria"], "Insights")
     data_exibida = data_pub.strftime("%-d %b %Y").replace(
@@ -466,8 +466,7 @@ def main():
 </div>'''
 
     # Cria HTML
-    html = criar_html_artigo(artigo, data_pub, slug)
-    html = html.replace("{imagem_capa_html}", imagem_capa_html)
+    html = criar_html_artigo(artigo, data_pub, slug, imagem_capa_html)
 
     # Salva arquivo HTML
     caminho_html = BLOG_DIR / f"{slug}.html"
