@@ -343,7 +343,7 @@ def criar_html_artigo(artigo, data_pub, slug, imagem_capa_html=""):
 
 <hr class="post-divider">
 
-{imagem_capa_html}
+___IMAGEM_CAPA___
 
 <div class="post-body">
 {artigo['corpo']}
@@ -467,6 +467,7 @@ def main():
 
     # Cria HTML
     html = criar_html_artigo(artigo, data_pub, slug, imagem_capa_html)
+    html = html.replace("___IMAGEM_CAPA___", imagem_capa_html)
 
     # Salva arquivo HTML
     caminho_html = BLOG_DIR / f"{slug}.html"
