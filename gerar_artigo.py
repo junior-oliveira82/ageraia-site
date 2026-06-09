@@ -132,6 +132,7 @@ def buscar_imagem_unsplash(tema):
     # Fallback: imagem padrão da Agera IA via placeholder escuro
     return "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80"
 
+
 def gerar_artigo_claude(texto_base, pesquisa_web, nome_arquivo):
     """Chama a API da Anthropic para gerar o artigo."""
     prompt = f"""Você é o editor de conteúdo da Agera IA — uma consultoria de agentes de inteligência artificial focada em vendas, marketing e integração com ERPs (como Bling e Omie) para pequenas e médias empresas.
@@ -147,7 +148,7 @@ SOBRE A AGERA IA:
 
 REGRAS OBRIGATÓRIAS — NUNCA VIOLE:
 1. NÃO copie frases ou trechos do material base — use apenas como referência conceitual
-2. NÃO recomende ferramentas, plataformas ou empresas concorrentes pelo nome
+2. NÃO recomende ferramentas, platforms ou empresas concorrentes pelo nome
 3. NÃO mencione anos passados no título — NUNCA coloque 2024 ou anterior no título
 4. Só mencione um ano no título se for artigo de tendências de fim/início de ano
 5. SEMPRE conecte o tema ao posicionamento da Agera IA — agentes de IA, ERP, vendas, marketing, resultado comercial
@@ -465,7 +466,7 @@ def main():
   <img src="{imagem_url}" alt="{artigo["titulo"]}" style="width:100%;border-radius:4px;display:block;max-height:420px;object-fit:cover;">
 </div>'''
 
-    # Cria HTML
+    # Cria HTML - Passando corretamente a variável imagem_capa_html para o escopo
     html = criar_html_artigo(artigo, data_pub, slug, imagem_capa_html)
     html = html.replace("___IMAGEM_CAPA___", imagem_capa_html)
 
@@ -473,7 +474,7 @@ def main():
     caminho_html = BLOG_DIR / f"{slug}.html"
     with open(caminho_html, "w", encoding="utf-8") as f:
         f.write(html)
-    print(f"Artigo salvo: {caminho_html}")
+    print(f"Artigo saved: {caminho_html}")
 
     # Atualiza posts.json
     atualizar_posts_json(artigo, data_pub, slug)
@@ -496,4 +497,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
